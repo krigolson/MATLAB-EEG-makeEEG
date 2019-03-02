@@ -10,10 +10,10 @@ clc;
 startTime = -500;
 endTime = 1498;
 samplingRate = 500;
-numberOfTrials = 100;
-noiseScaling = 0;                       % default noise range is -0.5 to 0.5
-channelScaling = [1 0.5 0.1 0.1];       % the multiplier for the second channel to simulate channel reduction in signal
-conditionScaling = [1 0.3];             % scales the conditions relative to each other to create simple "effects"
+numberOfTrials = 10;
+insertNoise = 0;                        % default noise range is -0.5 to 0.5
+channelScaling = [1 1 1 1];       % the multiplier for the second channel to simulate channel reduction in signal
+conditionScaling = [1 1];             % scales the conditions relative to each other to create simple "effects"
 participantScaling = [1 1 1 1 1];       % scaling the data to simulate participant difference
 waveletBaseline = [];
 morletParameter = 6;                    % recommend 6, range is 3 to 8
@@ -25,19 +25,19 @@ waveletSteps = 30;
 % specify the number of cycles to be inserted, the code can handle up to
 % four bursts. If you want a continuous burst of EEG set the burstCentre to
 % be equal to 0.
-bursts{1}.frequency = 6;                % frequency of the burst
-bursts{1}.burstCentre = 250;            % timepoint for burst center, set to 0 to span waveform
+bursts{1}.frequency = 10;                % frequency of the burst
+bursts{1}.burstCentre = 0;            % timepoint for burst center, set to 0 to span waveform
 bursts{1}.burstTimingNoise = 0;         % the jitter in ms of the burst center
-bursts{1}.amplitude = -4;               % peak burst amplitude
+bursts{1}.amplitude = 2;               % peak burst amplitude
 bursts{1}.amplitudeNoise = 0;           % the jitter in the burst amplitude            
-bursts{1}.cycles = 0.5;                 % how long the burst spans (for bursts not spanning waveform)
+bursts{1}.cycles = 0;                 % how long the burst spans (for bursts not spanning waveform)
 
-bursts{2}.frequency = 2;
-bursts{2}.burstCentre = 350;
+bursts{2}.frequency = 5;
+bursts{2}.burstCentre = 0;
 bursts{2}.burstTimingNoise = 0;        % the jitter in ms of the burst center
-bursts{2}.amplitude = 6;
+bursts{2}.amplitude = 4;
 bursts{2}.amplitudeNoise = 0;
-bursts{2}.cycles = 0.5;
+bursts{2}.cycles = 0;
 
 bursts{3}.frequency = 0;
 bursts{3}.burstCentre = 0;
@@ -85,7 +85,7 @@ for participantCounter = 1:numberOfParticipants
 
         % add some noise
         for channelCounter = 1:numberOfChannels
-            eegNoise = (rand(length(timePoints),numberOfTrials)-0.5)*noiseScaling;
+            eegNoise = (rand(length(timePoints),numberOfTrials)-0.5)*insertNoise;
             data(channelCounter,:,:) = eegNoise;
         end
 
