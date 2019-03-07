@@ -145,7 +145,7 @@ for participantCounter = 1:numberOfParticipants
         
         ERP.data(:,:,conditionCounter,participantCounter) = mean(data,3);
         
-        [fftoutput frequencies] = doFFT(data,samplingRate,length(tempWave));
+        [fftoutput frequencies] =  doFourier(data,samplingRate);
         
         FFT.data(:,:,conditionCounter,participantCounter) = fftoutput;
         
