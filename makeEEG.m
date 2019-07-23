@@ -28,14 +28,14 @@ waveletSteps = 30;
 bursts{1}.frequency = 10;                % frequency of the burst
 bursts{1}.burstCentre = 0;            % timepoint for burst center, set to 0 to span waveform
 bursts{1}.burstTimingNoise = 0;         % the jitter in ms of the burst center
-bursts{1}.amplitude = 2;               % peak burst amplitude
+bursts{1}.amplitude = 5;               % peak burst amplitude
 bursts{1}.amplitudeNoise = 0;           % the jitter in the burst amplitude            
 bursts{1}.cycles = 0;                 % how long the burst spans (for bursts not spanning waveform)
 
-bursts{2}.frequency = 5;
+bursts{2}.frequency = 0;
 bursts{2}.burstCentre = 0;
 bursts{2}.burstTimingNoise = 0;        % the jitter in ms of the burst center
-bursts{2}.amplitude = 4;
+bursts{2}.amplitude = 0;
 bursts{2}.amplitudeNoise = 0;
 bursts{2}.cycles = 0;
 
@@ -252,7 +252,9 @@ figure;
 maxFrequency = 50;
 meanWAV = mean(WAV.data,5);
 subplot(2,4,1);
-surf(squeeze(meanWAV(1,:,:,1)));shading interp; view(2);
+surf(squeeze(meanWAV(1,:,:,1)));
+shading interp; 
+view(2);
 title('Channel One, Condition One');
 caxis([minColour maxColour]);
 ax = gca;
